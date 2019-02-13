@@ -1,5 +1,7 @@
 from room import Room
 from player import Player
+from item import Item
+import sys
 
 # Declare all the rooms
 
@@ -42,60 +44,66 @@ print(room['narrow'].w_to.n_to)
 # Main
 #
 
+# def tryMove()
+
+def parser(user_input):
+
+    # direction = user_input + '_to'
+    # player.move(player.location.n_to)
+    # player.move(player.location[direction])
+    # if direction in player.location:
+    #     print('this is working')
+
+    if user_input == 'n':
+        try:
+            player.move(player.location.n_to)
+        except AttributeError:
+            print('There is nothing!')
+    elif user_input == 'e':
+        try:
+            player.move(player.location.e_to)
+        except AttributeError:
+            print('There is nothing!')
+    elif user_input == 's':
+        try:
+            player.move(player.location.s_to)
+        except AttributeError:
+            print('There is nothing!')
+    elif user_input == 'w':
+        try:
+            player.move(player.location.w_to)
+        except AttributeError:
+            print('There is nothing!')
+    elif user_input == 'q':
+        print('You have given up')
+        sys.exit()
+    else:
+        print('ERROR! Thous\'t cannout goest!')
+
 # Make a new player object that is currently in the 'outside' room.
 player = Player(room['outside'])
+
+sword = Item('sword', 'A sharpend piece of steel')
+
+player.add_item(sword)
 # Write a loop that:
 #
 while True:
 
     # * Prints the current room name
     print('player.location', player.location)
-    print(player.location.name)
+    print(player.location.name, '\n')
 
     # * Prints the current description (the textwrap module might be useful here).
-    print(player.location.discription)
+    print(player.location.discription, '\n')
 
     # * Waits for user input and decides what to do.
     action = input('doues\'t what?\n')
-
     #
     # If the user enters a cardinal direction, attempt to move to the room there.
 
-    direction = action
+    parser(action)
 
-    print('direction', direction)
-    print('player.location', player.location)
-    # print(room[player.location][direction])
-
-    if direction == 'n':
-        # next_room = room[player.location].n_to
-        # print(next_room)
-        # player.move(next_room)
-        player.move(player.location.n_to)
-    elif direction == 'e':
-        # next_room = room[player.location].e_to
-        # print(next_room)
-        # player.move(next_room)
-        player.move(player.location.e_to)
-    elif direction == 's':
-        # next_room = room[player.location].s_to
-        # print(next_room)
-        # player.move(next_room)
-        player.move(player.location.s_to)
-    elif direction == 'w':
-        # next_room = room[player.location].w_to
-        # print(next_room)
-        # player.move(next_room)
-        player.move(player.location.w_to)
-    else:
-        print('ERROR! Thous\'t cannout goest!')
-
-
-
-
-
-    # if direction in room[player.location]:
-    #     player.move(room[player.location][direction])
     # # Print an error message if the movement isn't allowed.
     #
     # If the user enters "q", quit the game.
