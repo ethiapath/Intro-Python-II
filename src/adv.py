@@ -48,6 +48,16 @@ roomKeys = [name for name in room]
 
 print(roomKeys)
 
+items = {
+    'sword': Item('sword', 'A sharpend piece of steel'),
+    'lamp': Item('lamp', 'An oil lamp'),
+    'flare': Item('flare', 'A stick with lighting power.'),
+    'gold': Item('gold', 'A sparkling piece of yellow metal')
+}
+
+room['outside'].set_items([items['lamp'], items['gold']])
+room['foyer'].set_items([items['flare'], items['gold']])
+
 # print(room['narrow'].w_to.n_to)
 
 #
@@ -66,6 +76,7 @@ def parser(user_input):
     #     print('this is working')
 
     if len(inputs) < 2:
+        # If the user enters a cardinal direction, attempt to move to the room there.
         if user_input == 'n':
             try:
                 player.move(player.currentRoom.n_to)
@@ -86,6 +97,7 @@ def parser(user_input):
                 player.move(player.currentRoom.w_to)
             except AttributeError:
                 print('There is nothing!')
+        # If the user enters "q", quit the game.
         elif user_input == 'q':
             print('You have given up')
             sys.exit()
@@ -96,9 +108,7 @@ def parser(user_input):
         noun = inputs[1]
         if verb == 'get':
 
-
-
-            doesContain = player.currentRoom.items.__contains__(Item(noun))
+            doesContain = player.currentRoom.items.__contains__(items[noun])
             print(doesContain)
             item_in_room = getattr(player.currentRoom.items, noun, None)
             print(item_in_room)
@@ -117,33 +127,20 @@ player = Player(room['outside'])
 
 sword = Item('sword', 'A sharpend piece of steel')
 
-player.add_item(sword)
-
-# player.currentRoom['n' + '_to']
-# Write a loop that:
-#
+player.add_item(items['sword'])
 
 while True:
-
     # * Prints the current room name
-    # print('player.currentRoom', player.currentRoom)
     print(player.currentRoom.name, '\n')
 
     # * Prints the current description (the textwrap module might be useful here).
     print(player.currentRoom.discription, '\n')
 
-
     print('You have these items:', [i.name for i in player.items])
 
-    print('You spot some items!', [i.name for i in player.currentRoom.items])
+    print(f'You spot some items in the {player.currentRoom.name}!', [i.name for i in player.currentRoom.items])
 
     # * Waits for user input and decides what to do.
     action = input('doues\'t what?\n')
-    #
-    # If the user enters a cardinal direction, attempt to move to the room there.
-
     parser(action)
 
-    # # Print an error message if the movement isn't allowed.
-    #
-    # If the user enters "q", quit the game.

@@ -6,7 +6,7 @@ class Room:
     def __init__(self, name, discription):
         self.name = name
         self.discription = discription
-        self.items = [Item('gold', ''), Item('lamp', ''), Item('flare', '')]
+        self.items = []
 
     def set_items(self, items):
         self.items = items
