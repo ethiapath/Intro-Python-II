@@ -3,11 +3,11 @@
 from item import Item
 
 class Player:
-    def __init__(self, location):
-        self.location = location
+    def __init__(self, currentRoom):
+        self.currentRoom = currentRoom
 
     def move(self, room):
-        self.location = room
+        self.currentRoom = room
 
     def add_item(self, item):
         self.item = item

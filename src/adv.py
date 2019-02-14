@@ -39,7 +39,8 @@ roomKeys = [name for name in room]
 
 print(roomKeys)
 
-print(room['narrow'].w_to.n_to)
+# print(room['narrow'].w_to.n_to)
+
 #
 # Main
 #
@@ -47,38 +48,43 @@ print(room['narrow'].w_to.n_to)
 # def tryMove()
 
 def parser(user_input):
-
     # direction = user_input + '_to'
-    # player.move(player.location.n_to)
-    # player.move(player.location[direction])
-    # if direction in player.location:
+    # player.move(player.currentRoom[direction])
+
+    
+    inputs = user_input.split(' ')
+    # player.move(player.currentRoom.n_to)
+    # if direction in player.currentRoom:
     #     print('this is working')
 
-    if user_input == 'n':
-        try:
-            player.move(player.location.n_to)
-        except AttributeError:
-            print('There is nothing!')
-    elif user_input == 'e':
-        try:
-            player.move(player.location.e_to)
-        except AttributeError:
-            print('There is nothing!')
-    elif user_input == 's':
-        try:
-            player.move(player.location.s_to)
-        except AttributeError:
-            print('There is nothing!')
-    elif user_input == 'w':
-        try:
-            player.move(player.location.w_to)
-        except AttributeError:
-            print('There is nothing!')
-    elif user_input == 'q':
-        print('You have given up')
-        sys.exit()
+    if len(inputs) < 2:
+        if user_input == 'n':
+            try:
+                player.move(player.currentRoom.n_to)
+            except AttributeError:
+                print('There is nothing!')
+        elif user_input == 'e':
+            try:
+                player.move(player.currentRoom.e_to)
+            except AttributeError:
+                print('There is nothing!')
+        elif user_input == 's':
+            try:
+                player.move(player.currentRoom.s_to)
+            except AttributeError:
+                print('There is nothing!')
+        elif user_input == 'w':
+            try:
+                player.move(player.currentRoom.w_to)
+            except AttributeError:
+                print('There is nothing!')
+        elif user_input == 'q':
+            print('You have given up')
+            sys.exit()
+        else:
+            print('ERROR! Thous\'t cannout goest!')
     else:
-        print('ERROR! Thous\'t cannout goest!')
+        print('more then one word', inputs)
 
 # Make a new player object that is currently in the 'outside' room.
 player = Player(room['outside'])
@@ -86,16 +92,21 @@ player = Player(room['outside'])
 sword = Item('sword', 'A sharpend piece of steel')
 
 player.add_item(sword)
+
+# player.currentRoom['n' + '_to']
 # Write a loop that:
 #
+
 while True:
 
     # * Prints the current room name
-    print('player.location', player.location)
-    print(player.location.name, '\n')
+    # print('player.currentRoom', player.currentRoom)
+    print(player.currentRoom.name, '\n')
 
     # * Prints the current description (the textwrap module might be useful here).
-    print(player.location.discription, '\n')
+    print(player.currentRoom.discription, '\n')
+
+    print(player.currentRoom.items)
 
     # * Waits for user input and decides what to do.
     action = input('doues\'t what?\n')
