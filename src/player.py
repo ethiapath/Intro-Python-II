@@ -10,6 +10,10 @@ class Player:
     def move(self, room):
         self.currentRoom = room
 
-    def add_item(self, item):
+    def pickup_item(self, item):
         self.items.append(item)
         print(f'Picked up {item.name}!')
+
+    def drop_item(self, item):
+        self.items.remove(item)
+        print(f'Droped {item.name}')

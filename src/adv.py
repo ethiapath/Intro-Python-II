@@ -106,28 +106,39 @@ def parser(user_input):
     else:
         verb = inputs[0]
         noun = inputs[1]
+        print('two words')
         if verb == 'get':
+            '''
+            if not noun in items:
+                if not noun in player.currentRoom.items:
+                    print(f'{noun} does not exist')
+                    yield(1)
+                    '''
 
-            doesContain = getattr(player.currentRoom.items, noun, None)
-            print('doesContain', doesContain)
-            item_in_room = player.currentRoom.items.__contains__(items[noun])
-            print('item_in_room', item_in_room)
-
-            if item_in_room:
-                player.add_item(items[noun])
-                player.currentRoom.remove_item(items[noun])
+            if noun in items:
+                if items[noun] in player.currentRoom.items:
+                    player.pickup_item(items[noun])
+                    player.currentRoom.remove_item(items[noun])
+                else:
+                    print(f'There is no {noun} in the room')
             else:
-                print(f'There is no {noun} in the room')
-
-
-
+                print(f'{noun} does not exist')
+        elif verb == 'drop':
+            if noun in items:
+                if items[noun] in player.items:
+                    player.drop_item(items[noun])
+                    player.currentRoom.add_item(items[noun])
+                else:
+                    print(f'You do not have {noun}')
+            else:
+                print(f'{noun} does not exist')
 
 # Make a new player object that is currently in the 'outside' room.
 player = Player(room['outside'])
 
 sword = Item('sword', 'A sharpend piece of steel')
 
-player.add_item(items['sword'])
+player.pickup_item(items['sword'])
 
 while True:
     # * Prints the current room name
