@@ -13,7 +13,9 @@ class Player:
     def pickup_item(self, item):
         self.items.append(item)
         print(f'Picked up {item.name}!')
+        item.on_get()
 
     def drop_item(self, item):
         self.items.remove(item)
         print(f'Droped {item.name}')
+        item.on_drop()

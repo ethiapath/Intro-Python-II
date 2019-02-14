@@ -2,6 +2,7 @@ from room import Room
 from player import Player
 from item import Item
 import sys
+import textwrap
 
 # Declare all the rooms
 
@@ -10,7 +11,7 @@ room = {
                      "North of you, the cave mount beckons"),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-                    passages run north and east."""),
+                    passages run north and west."""),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
                     into the darkness. Ahead to the north, a light flickers in
@@ -38,9 +39,9 @@ narrow ---- foyer
 room['outside'].n_to = room['foyer']
 room['foyer'].s_to = room['outside']
 room['foyer'].n_to = room['overlook']
-room['foyer'].e_to = room['narrow']
+room['foyer'].w_to = room['narrow']
 room['overlook'].s_to = room['foyer']
-room['narrow'].w_to = room['foyer']
+room['narrow'].e_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
@@ -57,6 +58,7 @@ items = {
 
 room['outside'].set_items([items['lamp'], items['gold']])
 room['foyer'].set_items([items['flare'], items['gold']])
+room['treasure'].set_items([items['gold']])
 
 # print(room['narrow'].w_to.n_to)
 
@@ -145,7 +147,9 @@ while True:
     print(player.currentRoom.name, '\n')
 
     # * Prints the current description (the textwrap module might be useful here).
-    print(player.currentRoom.discription, '\n')
+    # print(player.currentRoom.discription, '\n')
+    for line in textwrap.wrap(player.currentRoom.discription):
+        print(line)
 
     print('You have these items:', [i.name for i in player.items])
 

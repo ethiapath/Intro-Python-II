@@ -6,3 +6,9 @@ class Item:
 
     def __str__(self):
         return self.name
+
+    def on_get(self):
+        print(f'{self.discription}')
+
+    def on_drop(self):
+        print(f'{self.name} falls to the ground')
