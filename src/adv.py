@@ -108,14 +108,14 @@ def parser(user_input):
         noun = inputs[1]
         if verb == 'get':
 
-            doesContain = player.currentRoom.items.__contains__(items[noun])
-            print(doesContain)
-            item_in_room = getattr(player.currentRoom.items, noun, None)
-            print(item_in_room)
+            doesContain = getattr(player.currentRoom.items, noun, None)
+            print('doesContain', doesContain)
+            item_in_room = player.currentRoom.items.__contains__(items[noun])
+            print('item_in_room', item_in_room)
 
-            if item_in_room is not None:
-                player.add_item(noun)
-                player.currentRoom.remove_item(noun)
+            if item_in_room:
+                player.add_item(items[noun])
+                player.currentRoom.remove_item(items[noun])
             else:
                 print(f'There is no {noun} in the room')
 

@@ -12,4 +12,4 @@ class Room:
         self.items = items
 
     def remove_item(self, item):
-       del self.items[item]
+        self.items.remove(item)
