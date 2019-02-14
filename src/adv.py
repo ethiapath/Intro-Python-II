@@ -26,6 +26,15 @@ room = {
 
 # Link rooms together
 
+'''
+
+treasure   overlook
+  |           |
+narrow ---- foyer
+              |
+           outside
+'''
+
 room['outside'].n_to = room['foyer']
 room['foyer'].s_to = room['outside']
 room['foyer'].n_to = room['overlook']
@@ -51,7 +60,6 @@ def parser(user_input):
     # direction = user_input + '_to'
     # player.move(player.currentRoom[direction])
 
-    
     inputs = user_input.split(' ')
     # player.move(player.currentRoom.n_to)
     # if direction in player.currentRoom:
@@ -84,7 +92,25 @@ def parser(user_input):
         else:
             print('ERROR! Thous\'t cannout goest!')
     else:
-        print('more then one word', inputs)
+        verb = inputs[0]
+        noun = inputs[1]
+        if verb == 'get':
+
+
+
+            doesContain = player.currentRoom.items.__contains__(Item(noun))
+            print(doesContain)
+            item_in_room = getattr(player.currentRoom.items, noun, None)
+            print(item_in_room)
+
+            if item_in_room is not None:
+                player.add_item(noun)
+                player.currentRoom.remove_item(noun)
+            else:
+                print(f'There is no {noun} in the room')
+
+
+
 
 # Make a new player object that is currently in the 'outside' room.
 player = Player(room['outside'])
@@ -106,7 +132,10 @@ while True:
     # * Prints the current description (the textwrap module might be useful here).
     print(player.currentRoom.discription, '\n')
 
-    print(player.currentRoom.items)
+
+    print('You have these items:', [i.name for i in player.items])
+
+    print('You spot some items!', [i.name for i in player.currentRoom.items])
 
     # * Waits for user input and decides what to do.
     action = input('doues\'t what?\n')
